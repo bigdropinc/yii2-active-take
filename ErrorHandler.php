@@ -9,7 +9,8 @@
 
 namespace bigdropinc\take;
 
-use common\models\RecordNotFoundException;
+
+use bigdropinc\take\exceptions\RecordNotFoundException;
 use yii\web\NotFoundHttpException;
 
 class ErrorHandler extends \yii\web\ErrorHandler

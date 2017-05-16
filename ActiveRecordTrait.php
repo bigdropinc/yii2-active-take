@@ -58,7 +58,7 @@ trait ActiveRecordTrait
     {
         if(strpos($name, 'take') === 0){
             $method = str_replace('take', 'find', $name );
-            if(method_exists(static::class, $method)){
+            if(is_callable([static::class, $method])){
                 return $method;
             }
         }

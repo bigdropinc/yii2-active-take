@@ -15,6 +15,13 @@ use yii\web\NotFoundHttpException;
 
 class ErrorHandler extends \yii\web\ErrorHandler
 {
+
+    /**
+     * Converts a RecordNotFoundException to a NotFoundHttpException
+     *
+     * @param $exception
+     * @return mixed
+     */
     public function handleException($exception)
     {
         if($exception instanceof RecordNotFoundException){

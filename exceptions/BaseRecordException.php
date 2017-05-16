@@ -11,6 +11,12 @@ namespace bigdropinc\take\exceptions;
 
 use yii\base\UserException;
 
+/**
+ * Base class of
+ *
+ * Class BaseRecordException
+ * @package bigdropinc\take\exceptions
+ */
 abstract class BaseRecordException extends UserException
 {
     private $record;

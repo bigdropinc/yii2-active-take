@@ -84,7 +84,7 @@ trait ActiveRecordTrait
      * @param null $attributeNames
      * @return bool
      */
-    public function takeSave($runValidation = true, $attributeNames = null)
+    public function saveOrFail($runValidation = true, $attributeNames = null)
     {
         if(!$this->save($runValidation, $attributeNames)){
             if($this->hasErrors()){
@@ -103,7 +103,7 @@ trait ActiveRecordTrait
      * @param bool $clearErrors
      * @return bool
      */
-    public function takeValidate($attributeNames = null, $clearErrors = true)
+    public function validateOrFail($attributeNames = null, $clearErrors = true)
     {
         if(!$this->validate($attributeNames, $clearErrors)){
             throw new RecordInvalidException($this);

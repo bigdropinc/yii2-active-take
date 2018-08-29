@@ -47,9 +47,9 @@ It's can make your code much more simple, clear and readable. It will allowed yo
 By using ```bigdropinc\take\ActiveRecordTrait``` into your ActiveRecord class you got this features:
 * all method **"find"** methods will get the pair **"take"** method (*findOne - takeOne, findAll - takeAll*). 
 If find method returns empty result, take method will raise an ```RecordNotFoundException```
-* method **takeValidate** will raise ```RecordInvalidException``` if validate returns false
-* method **takeSave** will raise ```RecordInvalidException``` if model has validation errors during save.
-Also **takeSave** will raise ```RecordNotSavedException``` if model validations was passed but model saving returned false
+* method **validateOrFail** will raise ```RecordInvalidException``` if validate returns false
+* method **saveOrFail** will raise ```RecordInvalidException``` if model has validation errors during save.
+Also **saveOrFail** will raise ```RecordNotSavedException``` if model validations was passed but model saving returned false
 
 ### Active Query
 

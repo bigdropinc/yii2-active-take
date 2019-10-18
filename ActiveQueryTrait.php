@@ -9,7 +9,6 @@
 
 namespace bigdropinc\take;
 
-
 use bigdropinc\take\exceptions\RecordNotFoundException;
 
 trait ActiveQueryTrait
@@ -20,6 +19,7 @@ trait ActiveQueryTrait
      *
      * @param null $db
      * @return array
+     * @throws RecordNotFoundException
      */
     public function takeAll($db = null)
     {
@@ -34,6 +34,7 @@ trait ActiveQueryTrait
      *
      * @param null $db
      * @return yii\db\ActiveRecord
+     * @throws RecordNotFoundException
      */
     public function takeOne($db = null)
     {

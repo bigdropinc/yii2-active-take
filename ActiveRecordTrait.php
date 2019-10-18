@@ -13,8 +13,6 @@ use bigdropinc\take\exceptions\RecordInvalidException;
 use bigdropinc\take\exceptions\RecordNotFoundException;
 use bigdropinc\take\exceptions\RecordNotSavedException;
 
-
-
 trait ActiveRecordTrait
 {
 
@@ -24,12 +22,14 @@ trait ActiveRecordTrait
      * @param $name
      * @param $arguments
      * @return mixed
+     * @throws RecordNotFoundException
      */
     public static function processTake($name, $arguments)
     {
-        if(($method = static::getTakeMagicMethod($name))){
+        if (($method = static::getTakeMagicMethod($name))) {
             return static::callTakeMethod($method, $arguments);
         }
+        return null;
     }
 
     /**
@@ -38,11 +38,12 @@ trait ActiveRecordTrait
      * @param $method
      * @param $arguments
      * @return mixed
+     * @throws RecordNotFoundException
      */
     public static function callTakeMethod($method, $arguments)
     {
         $result = call_user_func([static::class, $method], $arguments);
-        if(empty($result)){
+        if (empty($result)) {
             throw new RecordNotFoundException();
         }
         return $result;
@@ -56,7 +57,7 @@ trait ActiveRecordTrait
      */
     public static function getTakeMagicMethod($name)
     {
-        if(strpos($name, 'take') === 0){
+        if (strpos($name, 'take') === 0) {
             $method = str_replace('take', 'find', $name );
             if(is_callable([static::class, $method])){
                 return $method;
@@ -83,11 +84,13 @@ trait ActiveRecordTrait
      * @param bool $runValidation
      * @param null $attributeNames
      * @return bool
+     * @throws RecordInvalidException
+     * @throws RecordNotSavedException
      */
     public function saveOrFail($runValidation = true, $attributeNames = null)
     {
-        if(!$this->save($runValidation, $attributeNames)){
-            if($this->hasErrors()){
+        if (!$this->save($runValidation, $attributeNames)) {
+            if ($this->hasErrors()) {
                 throw new RecordInvalidException($this);
             } else {
                 throw new RecordNotSavedException($this);
@@ -102,13 +105,13 @@ trait ActiveRecordTrait
      * @param null $attributeNames
      * @param bool $clearErrors
      * @return bool
+     * @throws RecordInvalidException
      */
     public function validateOrFail($attributeNames = null, $clearErrors = true)
     {
-        if(!$this->validate($attributeNames, $clearErrors)){
+        if (!$this->validate($attributeNames, $clearErrors)) {
             throw new RecordInvalidException($this);
         };
         return true;
     }
-
 }
